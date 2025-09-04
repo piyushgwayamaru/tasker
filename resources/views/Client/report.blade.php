@@ -77,33 +77,32 @@
 
 @section('content')
 <div class="filter-card d-print-none">
+    {{-- MODIFIED: Re-arranged the grid columns for better spacing --}}
     <div class="row align-items-center">
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="text" id="search-input" class="form-control" placeholder="Search by Service, Job, or Task..." value="{{ $search ?? '' }}">
+        <div class="col-md-4">
+            <input type="text" id="search-input" class="form-control" placeholder="Search by Service, Job, or Task..." value="{{ $search ?? '' }}">
+        </div>
+        <div class="col-md-3">
+            <select id="status-filter" class="form-control" multiple="multiple"></select>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex align-items-center">
+                <div id="dropdown-filters" class="row flex-grow-1">
+                    <div class="col"><select id="year-filter" class="form-control">@foreach($years as $year)<option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>{{ $year }}</option>@endforeach</select></div>
+                    <div class="col"><select id="month-filter" class="form-control">@foreach($months as $num => $name)<option value="{{ $num }}" {{ $num == $currentMonth ? 'selected' : '' }}>{{ $name }}</option>@endforeach</select></div>
                 </div>
-                <div class="col-md-3">
-                    <select id="status-filter" class="form-control" multiple="multiple"></select>
+                <div id="custom-range-filters" class="row flex-grow-1" style="display: none;">
+                    <div class="col"><input type="date" id="start-date-filter" class="form-control" value="{{ $startDate->format('Y-m-d') }}"></div>
+                    <div class="col"><input type="date" id="end-date-filter" class="form-control" value="{{ $endDate->format('Y-m-d') }}"></div>
                 </div>
-                <div class="col-md-5">
-                    <div class="d-flex align-items-center">
-                        <div id="dropdown-filters" class="row flex-grow-1">
-                            <div class="col"><select id="year-filter" class="form-control">@foreach($years as $year)<option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>{{ $year }}</option>@endforeach</select></div>
-                            <div class="col"><select id="month-filter" class="form-control">@foreach($months as $num => $name)<option value="{{ $num }}" {{ $num == $currentMonth ? 'selected' : '' }}>{{ $name }}</option>@endforeach</select></div>
-                        </div>
-                        <div id="custom-range-filters" class="row flex-grow-1" style="display: none;">
-                            <div class="col"><input type="date" id="start-date-filter" class="form-control" value="{{ $startDate->format('Y-m-d') }}"></div>
-                            <div class="col"><input type="date" id="end-date-filter" class="form-control" value="{{ $endDate->format('Y-m-d') }}"></div>
-                        </div>
-                        <div class="custom-control custom-switch ml-3">
-                            <input type="checkbox" class="custom-control-input" id="custom-range-switch" {{ $use_custom_range ? 'checked' : '' }}>
-                            <label class="custom-control-label" for="custom-range-switch">Custom</label>
-                        </div>
-                         <button class="btn btn-secondary ml-3" id="reset-filters">Reset</button>
-                    </div>
+                <div class="custom-control custom-switch ml-3">
+                    <input type="checkbox" class="custom-control-input" id="custom-range-switch" {{ $use_custom_range ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="custom-range-switch">Custom</label>
                 </div>
             </div>
+        </div>
+        <div class="col-md-1">
+             <button class="btn btn-secondary btn-block" id="reset-filters">Reset</button>
         </div>
     </div>
 </div>

@@ -345,18 +345,27 @@
             <div class="container">
                 <h2 class="section-title text-center">Get in <span style="color: var(--primary-blue);">Touch</span></h2>
                 <p class="section-subtitle">Have questions about Tasker? We're here to help. Reach out to our team and we'll get back to you as soon as possible.</p>
+
+                <?php if(session('success')): ?>
+                    <div class="alert alert-success col-lg-6 mx-auto">
+                        <?php echo e(session('success')); ?>
+
+                    </div>
+                <?php endif; ?>
+
                 <div class="row align-items-center">
                     <div class="col-lg-6 mb-4 mb-lg-0">
                         <div class="contact-form">
                             <h4 class="mb-4">Send us a message</h4>
-                            <form action="#" method="POST">
+                            <form action="<?php echo e(route('contact.store')); ?>" method="POST">
+                                <?php echo csrf_field(); ?>
                                 <div class="row">
-                                    <div class="col-md-6 mb-3"><input type="text" class="form-control" placeholder="First Name" required></div>
-                                    <div class="col-md-6 mb-3"><input type="text" class="form-control" placeholder="Last Name" required></div>
+                                    <div class="col-md-6 mb-3"><input type="text" name="first_name" class="form-control" placeholder="First Name" required></div>
+                                    <div class="col-md-6 mb-3"><input type="text" name="last_name" class="form-control" placeholder="Last Name" required></div>
                                 </div>
-                                <div class="mb-3"><input type="email" class="form-control" placeholder="Email Address" required></div>
-                                <div class="mb-3"><input type="text" class="form-control" placeholder="Company (optional)"></div>
-                                <div class="mb-3"><textarea class="form-control" rows="5" placeholder="Tell us how we can help..."></textarea></div>
+                                <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Email Address" required></div>
+                                <div class="mb-3"><input type="text" name="company" class="form-control" placeholder="Company (optional)"></div>
+                                <div class="mb-3"><textarea name="message" class="form-control" rows="5" placeholder="Tell us how we can help..."></textarea></div>
                                 <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
                             </form>
                         </div>
@@ -388,13 +397,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5">
-                    <div class="col-12">
-                        <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.992233623543!2d85.31688657512295!3d27.68661607619504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19b023de2181%3A0x7af7c237a360a8b!2sG-Tech%20Vision!5e0!3m2!1sen!2snp!4v1693557375630!5m2!1sen!2snp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </section>
     </main>
@@ -419,7 +422,7 @@
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="#about">About Tasker</a></li>
                         <li class="mb-2"><a href="#contact">Contact</a></li>
-                        <li class="mb-2"><a href="{{ route('login') }}">Login</a></li>
+                        <li class="mb-2"><a href="<?php echo e(route('login')); ?>">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 text-center text-lg-start">
